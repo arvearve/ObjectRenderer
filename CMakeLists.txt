@@ -33,6 +33,3 @@ add_definitions(${VISIBILITY_FLAGS})
 
 TARGET_LINK_LIBRARIES(objectrenderer luxcore smallluxgpu luxrays ${EMBREE_LIBRARY} ${TIFF_LIBRARIES} ${OPENEXR_LIBRARIES} ${PNG_LIBRARIES} ${JPEG_LIBRARIES})
 
-add_executable(test "test.cpp")
-add_definitions(${VISIBILITY_FLAGS})
-TARGET_LINK_LIBRARIES(test luxcore smallluxgpu luxrays ${EMBREE_LIBRARY} ${TIFF_LIBRARIES} ${OPENEXR_LIBRARIES} ${PNG_LIBRARIES} ${JPEG_LIBRARIES})
