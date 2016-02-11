@@ -38,10 +38,11 @@ void Renderer::render() {
     Scene scene = config.GetScene();
     int camera_position_number = 0;
     std::string oldFileName = session.GetRenderConfig().GetProperty("film.outputs.1.filename").GetValuesString();
-    for (Point &point : getCameraPositions()) {
+    std::vector<Point> cameraPositions = getCameraPositions();
+    for (std::vector<Point>::iterator point = cameraPositions.begin(); point != cameraPositions.end(); ++point) {
         session.BeginSceneEdit();
         scene.Parse(
-                Property("scene.camera.lookat.orig")(point*2.f) <<
+                Property("scene.camera.lookat.orig")(point->x, point->y, point->z) <<
                 Property("scene.camera.lookat.target")(0.f, 0.f, 0.f));
         session.EndSceneEdit();
         waitAndSave();
@@ -69,31 +70,23 @@ void Renderer::stats() {
  * except those that lie below 0 on the Z axis*/
 vector<Point> Renderer::getCameraPositions() const {
     std::vector<Point> result;
-    const float phi = 1.618033; // Golden ratio: ϕ = (1+sqrt(5))/2
-    const float phi_inverse = 0.618033; // 1/ϕ
-    result.push_back(Point( phi, 0, 0));
-    result.push_back(Point( phi_inverse,  phi, 0));
-    result.push_back(Point(-phi_inverse,  phi, 0));
-    result.push_back(Point(-phi, 0, 0));
-    result.push_back(Point(-phi_inverse, -phi, 0));
-    result.push_back(Point( phi_inverse, -phi, 0));
-    result.push_back(Point( phi, 0.0, phi_inverse));
-    result.push_back(Point( 1.0,  1.0, 1.0));
-    result.push_back(Point(-1.0,  1.0, 1.0));
-    result.push_back(Point(-phi, 0.0, phi_inverse));
+    const float phi = 1.618f; // Golden ratio: ϕ = (1+sqrt(5))/2
+    const float phi_inverse = 0.618f; // 1/ϕ
+    result.push_back(Point( phi, 0.f, 0.f));
+    result.push_back(Point( phi_inverse,  phi, 0.f));
+    result.push_back(Point(-phi_inverse,  phi, 0.f));
+    result.push_back(Point(-phi, 0.f, 0.f));
+    result.push_back(Point(-phi_inverse, -phi, 0.f));
+    result.push_back(Point( phi_inverse, -phi, 0.f));
+    result.push_back(Point( phi, 0.f, phi_inverse));
+    result.push_back(Point( 1.f,  1.f, 1.f));
+    result.push_back(Point(-1.f,  1.f, 1.f));
+    result.push_back(Point(-phi, 0.f, phi_inverse));
 
-    result.push_back(Point(-1.0, -1.0, 1.0));
-    result.push_back(Point( 1.0, -1.0, 1.0));
-    result.push_back(Point(0.0,  phi_inverse, phi));
-    result.push_back(Point(0.0, -phi_inverse, phi));
-
-
-
-
-
-
-
-
+    result.push_back(Point(-1.f, -1.f, 1.f));
+    result.push_back(Point( 1.f, -1.f, 1.f));
+    result.push_back(Point(0.f,  phi_inverse, phi));
+    result.push_back(Point(0.f, -phi_inverse, phi));
     return result;
 }
 
