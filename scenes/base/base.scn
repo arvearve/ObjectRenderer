@@ -1,0 +1,47 @@
+# Camera
+scene.camera.lookat.orig = 3.236066 0.0 0.0
+scene.camera.lookat.target = 0.0 0.0 0.0
+scene.camera.fieldofview = 60.0
+scene.camera.up	= 0.01 0.0 1.0
+
+
+# Materials
+scene.materials.whitematte.type = roughmatte
+scene.materials.whitematte.kd = 0.75 0.75 0.75
+scene.materials.whitematte.sigma = 0.1
+
+scene.materials.darkmatte.type = roughmatte
+scene.materials.darkmatte.kd = 0.2 0.2 0.2
+scene.materials.darkmatte.sigma = 0.5
+
+
+
+# Shapes
+scene.shapes.subject.type = mesh
+scene.shapes.subject.ply = scenes/base/m800.ply
+
+scene.shapes.plane.type = mesh
+scene.shapes.plane.ply = scenes/base/plane.ply
+
+# Objects
+scene.objects.subject.shape = subject
+scene.objects.subject.material = whitematte
+scene.objects.subject.id = 1
+
+scene.objects.plane.shape = plane
+scene.objects.plane.material = darkmatte
+scene.objects.plane.id = 2
+
+# Light
+#scene.lights.env.id = 1
+#scene.lights.env = infinite
+#scene.lights.env.file = scenes/base/beach.hdr
+#scene.lights.env.gain = 1.0 1.0 1.0
+#scene.lights.env.gamma = 1.0
+
+
+scene.lights.infinitelight.type = infinite
+scene.lights.infinitelight.file = scenes/base/beach.hdr
+scene.lights.infinitelight.gamma = 1.0
+scene.lights.infinitelight.gain = 3.0 3.0 3.0
+#scene.lights.infinitelight.shift = 0.25 0.0
