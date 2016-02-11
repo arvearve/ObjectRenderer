@@ -56,23 +56,6 @@ int main(int argc, const char* argv[]){
         int renderTime = vm["render-time"].as<int>();
         Renderer renderer(file, renderTime);
         renderer.render();
-        const double startTime = WallClockTime();
-        for (;;) {
-            boost::this_thread::sleep(boost::posix_time::millisec(1000));
-
-            const double elapsedTime = WallClockTime() - startTime;
-
-            // Print some information about the rendering progress
-
-            renderer.stats();
-            if (elapsedTime > renderTime) {
-                // Time to stop the rendering
-                break;
-            }
-        }
-
-        renderer.save();
-
     }
     else {
         std::cout << description << std::endl;

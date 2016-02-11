@@ -14,15 +14,18 @@ class Renderer {
     int renderTime;
     static void log(const char*);
     static void log(const std::string);
+    vector<Point> getCameraPositions() const;
+    void waitAndSave();
+    void stats();
 public:
-    Renderer(const std::string filename, const int renderTime):props(filename), config(props), session(&config), renderTime(renderTime){
+    Renderer(const std::string filename, const int renderTime)
+            :props(filename), config(props), session(&config), renderTime(renderTime){
         Init();
         log("loaded scene file: " + filename);
     };
 
     void render();
-    void stats();
-    void save();
+
 };
 
 
