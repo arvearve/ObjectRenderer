@@ -38,20 +38,22 @@ void Renderer::render() {
     Scene scene = config.GetScene();
     int camera_position_number = 0;
     std::string oldFileName = session.GetRenderConfig().GetProperty("film.outputs.1.filename").GetValuesString();
+    std::string oldFileNameAlpha = session.GetRenderConfig().GetProperty("film.outputs.2.filename").GetValuesString();
     std::vector<Point> cameraPositions = getCameraPositions();
     for (std::vector<Point>::iterator point = cameraPositions.begin(); point != cameraPositions.end(); ++point) {
         session.BeginSceneEdit();
         scene.Parse(
-                Property("scene.camera.lookat.orig")(point->x, point->y, point->z) <<
+                Property("scene.camera.lookat.orig")(point->x*2.f, point->y*2.f, point->z*2.f) <<
                 Property("scene.camera.lookat.target")(0.f, 0.f, 0.f));
         session.EndSceneEdit();
         waitAndSave();
         std::string filename = (boost::format("%s_%d.png") % oldFileName % camera_position_number).str();
+        std::string filenameAlpha = (boost::format("%s_%d.png") % oldFileNameAlpha % camera_position_number).str();
         boost::filesystem::rename(oldFileName, filename);
+        boost::filesystem::rename(oldFileNameAlpha, filenameAlpha);
         std::cout << "Filename set to: " << filename << std::endl;
         camera_position_number++;
     }
-
 }
 
 void Renderer::stats() {
