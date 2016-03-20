@@ -10,11 +10,84 @@ scene.materials.whitematte.type = roughmatte
 scene.materials.whitematte.kd = 0.75 0.75 0.75
 scene.materials.whitematte.sigma = 0.1
 
+
+scene.textures.check.type = checkerboard3d
+scene.textures.check.mapping.type = globalmapping3d
+scene.textures.check.mapping.transformation = 10 0 0 0 0 10 0 0 0 0 10 0 0 0 0 1
+
 scene.materials.darkmatte.type = roughmatte
-scene.materials.darkmatte.kd = 0.2 0.2 0.2
+scene.materials.darkmatte.kd = check
+#scene.materials.darkmatte.kd = 0.2 0.2 0.2
 scene.materials.darkmatte.sigma = 0.5
 
 
+
+# Wood (English Walnut)
+## Textures
+scene.textures.wood_ring.type = blender_wood
+scene.textures.wood_ring.bright = 1
+scene.textures.wood_ring.contrast = 1
+scene.textures.wood_ring.noisebasis = voronoi_f1
+scene.textures.wood_ring.noisebasis2 = saw
+scene.textures.wood_ring.noisesize = 0.756
+scene.textures.wood_ring.noisetype = soft_noise
+scene.textures.wood_ring.turbulence = 3.71
+scene.textures.wood_ring.woodtype = ringnoise
+scene.textures.wood_ring.mapping.type = globalmapping3d
+scene.textures.wood_ring.mapping.transformation = 5 0 0 0 0 5 0 0 0 0 5 0 0 0 0 1
+
+
+scene.textures.wood_dots.type = blender_musgrave
+scene.textures.wood_dots.bright = 1
+scene.textures.wood_dots.contrast = 2.5
+scene.textures.wood_dots.musgravetype = ridged_multifractal
+scene.textures.wood_dots.lacunarity = 2
+scene.textures.wood_dots.noisebasis = voronoi_f3
+scene.textures.wood_dots.noisesize = 0.02
+scene.textures.wood_dots.octaves = 2
+scene.textures.wood_dots.mapping.type = globalmapping3d
+scene.textures.wood_dots.mapping.transformation = 5 0 0 0 0 5 0 0 0 0 5 0 0 0 0 1
+
+
+scene.textures.wood_noise.type = blender_clouds
+scene.textures.wood_noise.bright = 0.5
+scene.textures.wood_noise.noisetype = hard_noise
+scene.textures.wood_noise.noisebasis = voronoi_f1
+scene.textures.wood_noise.noisesize = 0.816
+scene.textures.wood_noise.noisedepth = 1
+scene.textures.wood_noise.mapping.type = globalmapping3d
+scene.textures.wood_dots.mapping.transformation = 5 0 0 0 0 5 0 0 0 0 5 0 0 0 0 1
+
+scene.textures.wood_grey_1.type = mix
+scene.textures.wood_grey_1.amount = 0.5
+scene.textures.wood_grey_1.texture1 = wood_ring
+scene.textures.wood_grey_1.texture2 = wood_dots
+
+scene.textures.wood_grey.type = mix
+scene.textures.wood_grey.amount = 0.6666666
+scene.textures.wood_grey.texture1 = wood_grey_1
+scene.textures.wood_grey.texture2 = wood_noise
+
+scene.textures.bump.type = scale
+scene.textures.bump.texture1 = 0.001
+scene.textures.bump.texture2 = wood_grey
+
+scene.textures.wood_color.type = mix
+scene.textures.wood_color.amount = wood_grey_1
+scene.textures.wood_color.texture1 = 0.4969 0.3017 0.0958
+scene.textures.wood_color.texture2 = 0.1149 0.051 0.0072
+
+scene.materials.walnut.type = glossy2
+scene.materials.walnut.multibounce = 0
+scene.materials.walnut.kd = wood_color
+scene.materials.walnut.bumptex = bump
+scene.materials.walnut.index = 2.45
+scene.materials.walnut.uroughness = 0.08
+scene.materials.walnut.vroughness = 0.08
+
+
+scene.materials.woodmatte.type = matte
+scene.materials.woodmatte.kd = wood_color
 
 # Shapes
 scene.shapes.subject.type = mesh
@@ -25,11 +98,11 @@ scene.shapes.plane.ply = scenes/base/plane.ply
 
 # Objects
 scene.objects.subject.shape = subject
-scene.objects.subject.material = whitematte
+scene.objects.subject.material = walnut
 scene.objects.subject.id = 1
 
 scene.objects.plane.shape = plane
-scene.objects.plane.material = darkmatte
+scene.objects.plane.material = walnut
 scene.objects.plane.id = 2
 
 # Light
@@ -41,7 +114,6 @@ scene.objects.plane.id = 2
 
 
 scene.lights.infinitelight.type = infinite
-scene.lights.infinitelight.file = scenes/base/beach.hdr
+scene.lights.infinitelight.file = scenes/base/041-lussan-street-border_resized.exr
 scene.lights.infinitelight.gamma = 1.0
 scene.lights.infinitelight.gain = 3.0 3.0 3.0
-#scene.lights.infinitelight.shift = 0.25 0.0
