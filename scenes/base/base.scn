@@ -20,7 +20,32 @@ scene.materials.darkmatte.kd = check
 #scene.materials.darkmatte.kd = 0.2 0.2 0.2
 scene.materials.darkmatte.sigma = 0.5
 
+# Marble
+## Textures
+scene.textures.marble.type = blender_marble
+scene.textures.marble.bright = 1.0
+scene.textures.marble.contrast = 3.44
+scene.textures.marble.marbletype = sharp
+scene.textures.marble.noisetype = hard_noise
+scene.textures.marble.noisebasis = voronoi_f2
+scene.textures.marble.noisebasis2 = tri
+scene.textures.marble.noisesize = 1.57
+scene.textures.marble.turbulence = 17.7
+scene.textures.marble.noisedepth = 1
+scene.textures.marble.mapping.type = globalmapping3d
+scene.textures.marble.mapping.transformation = 5 0 0 0 0 5 0 0 0 0 5 0 0 0 0 1
 
+scene.textures.marble_color.type = mix
+scene.textures.marble_color.amount = marble
+scene.textures.marble_color.texture1 = 0.748 0.748 0.748
+scene.textures.marble_color.texture2 = 0.527 0.527 0.527
+
+scene.materials.marble.type = glossy2
+scene.materials.marble.kd = marble_color
+scene.materials.marble.ks = 0.076 0.076 0.076
+scene.materials.marble.index = 0
+scene.materials.marble.uroughness = 0.015
+scene.materials.marble.vrougness = 0.015
 
 # Wood (English Walnut)
 ## Textures
@@ -85,10 +110,6 @@ scene.materials.walnut.index = 2.45
 scene.materials.walnut.uroughness = 0.08
 scene.materials.walnut.vroughness = 0.08
 
-
-scene.materials.woodmatte.type = matte
-scene.materials.woodmatte.kd = wood_color
-
 # Shapes
 scene.shapes.subject.type = mesh
 scene.shapes.subject.ply = scenes/base/m800.ply
@@ -98,11 +119,11 @@ scene.shapes.plane.ply = scenes/base/plane.ply
 
 # Objects
 scene.objects.subject.shape = subject
-scene.objects.subject.material = walnut
+scene.objects.subject.material = marble
 scene.objects.subject.id = 1
 
 scene.objects.plane.shape = plane
-scene.objects.plane.material = walnut
+scene.objects.plane.material = marble
 scene.objects.plane.id = 2
 
 # Light
