@@ -6,22 +6,82 @@ scene.camera.up	= 0.01 0.0 1.0
 
 
 # Materials
-scene.materials.whitematte.type = roughmatte
-scene.materials.whitematte.kd = 0.75 0.75 0.75
-scene.materials.whitematte.sigma = 0.1
+
+## Drywall
+### Textures
+scene.textures.wall_bump.type = blender_clouds
+scene.textures.wall_bump.bright = 1.2
+scene.textures.wall_bump.contrast = 1
+scene.textures.wall_bump.noisetype = soft_noise
+scene.textures.wall_bump.noisebasis = improved_perlin
+scene.textures.wall_bump.noisesize = 0.15
+scene.textures.wall_bump.noisedepth = 2
+scene.textures.wall_bump.mapping.type = globalmapping3d
+scene.textures.wall_bump.mapping.transformation = 3 0 0 0 0 3 0 0 0 0 3 0 0 0 0 1
+# // Scale = 0.03
+
+scene.textures.wall_bump2.type = blender_clouds
+scene.textures.wall_bump2.bright = 1
+scene.textures.wall_bump2.contrast = 1
+scene.textures.wall_bump2.noisetype = soft_noise
+scene.textures.wall_bump2.noisebasis = voronoi_f3
+scene.textures.wall_bump2.noisesize = 0.15
+scene.textures.wall_bump2.noisedepth = 2
+scene.textures.wall_bump.mapping.type = globalmapping3d
+scene.textures.wall_bump.mapping.transformation = 5 0 0 0 0 5 0 0 0 0 5 0 0 0 0 1
+
+scene.textures.wall_bump_mix.type = mix
+scene.textures.wall_bump_mix.texture1 = wall_bump
+scene.textures.wall_bump_mix.texture2 = wall_bump2
+scene.textures.wall_bump_mix.amount = 0.5
+
+scene.textures.wall_bump_scale.type = scale
+scene.textures.wall_bump_scale.texture1 = wall_bump_mix
+scene.textures.wall_bump_scale.texture2 = 0.0135
+
+### Material
+scene.materials.drywall.type = matte
+scene.materials.drywall.bumptex = wall_bump_scale
+scene.materials.drywall.kd = 0.7 0.7 0.7
+scene.materials.drywall.sigma = 12.5
+
+## Purple anodized Alu
+### Textures
+scene.textures.brushed_al.type = blender_voronoi
+scene.textures.brushed_al.bright = 1
+scene.textures.brushed_al.contrast = 1
+scene.textures.brushed_al.distmetric = actual_distance
+scene.textures.brushed_al.minkovsky_exp = 2.5
+scene.textures.brushed_al.noisesize = 0.01
+scene.textures.brushed_al.nabla = 0.025
+scene.textures.brushed_al.w1 = -2
+scene.textures.brushed_al.w2 = 0
+scene.textures.brushed_al.w3 = 1
+scene.textures.brushed_al.w4 = 0.5
+scene.textures.brushed_al.mapping.type = globalmapping3d
+scene.textures.brushed_al.mapping.transformation = 0.01 0 0 0 0 0.01 0 0 0 0 20 0 0 0 0 1
+
+scene.textures.brushed_al_scaled.type = scale
+scene.textures.brushed_al_scaled.texture1 = 0.0015
+scene.textures.brushed_al_scaled.texture2 = brushed_al
+
+scene.materials.brushed_al.type = metal2
+scene.materials.brushed_al.preset = aluminium
+scene.materials.brushed_al.bumptex = brushed_al_scaled
 
 
-scene.textures.check.type = checkerboard3d
-scene.textures.check.mapping.type = globalmapping3d
-scene.textures.check.mapping.transformation = 10 0 0 0 0 10 0 0 0 0 10 0 0 0 0 1
+## Blue lino
+## Material
+scene.materials.lino.type = glossy2
+scene.materials.lino.multibounce = 0
+scene.materials.lino.kd = 0.274 0.316 0.4
+scene.materials.lino.ks = 0.191 0.191 0.191
+scene.materials.lino.index = 0
+scene.materials.lino.uroughness = 0.33
+scene.materials.lino.vroughness = 0.33
 
-scene.materials.darkmatte.type = roughmatte
-scene.materials.darkmatte.kd = check
-#scene.materials.darkmatte.kd = 0.2 0.2 0.2
-scene.materials.darkmatte.sigma = 0.5
-
-# Marble
-## Textures
+## Marble
+### Textures
 scene.textures.marble.type = blender_marble
 scene.textures.marble.bright = 1.0
 scene.textures.marble.contrast = 3.44
@@ -40,6 +100,7 @@ scene.textures.marble_color.amount = marble
 scene.textures.marble_color.texture1 = 0.748 0.748 0.748
 scene.textures.marble_color.texture2 = 0.527 0.527 0.527
 
+### Material
 scene.materials.marble.type = glossy2
 scene.materials.marble.kd = marble_color
 scene.materials.marble.ks = 0.076 0.076 0.076
@@ -47,8 +108,8 @@ scene.materials.marble.index = 0
 scene.materials.marble.uroughness = 0.015
 scene.materials.marble.vrougness = 0.015
 
-# Wood (English Walnut)
-## Textures
+## Wood (English Walnut)
+### Textures
 scene.textures.wood_ring.type = blender_wood
 scene.textures.wood_ring.bright = 1
 scene.textures.wood_ring.contrast = 1
@@ -102,6 +163,7 @@ scene.textures.wood_color.amount = wood_grey_1
 scene.textures.wood_color.texture1 = 0.4969 0.3017 0.0958
 scene.textures.wood_color.texture2 = 0.1149 0.051 0.0072
 
+### Material
 scene.materials.walnut.type = glossy2
 scene.materials.walnut.multibounce = 0
 scene.materials.walnut.kd = wood_color
@@ -112,14 +174,14 @@ scene.materials.walnut.vroughness = 0.08
 
 # Shapes
 scene.shapes.subject.type = mesh
-scene.shapes.subject.ply = scenes/base/m800.ply
+scene.shapes.subject.ply = scenes/base/m256.ply
 
 scene.shapes.plane.type = mesh
 scene.shapes.plane.ply = scenes/base/plane.ply
 
 # Objects
 scene.objects.subject.shape = subject
-scene.objects.subject.material = marble
+scene.objects.subject.material = brushed_purple_al
 scene.objects.subject.id = 1
 
 scene.objects.plane.shape = plane
@@ -127,13 +189,6 @@ scene.objects.plane.material = marble
 scene.objects.plane.id = 2
 
 # Light
-#scene.lights.env.id = 1
-#scene.lights.env = infinite
-#scene.lights.env.file = scenes/base/beach.hdr
-#scene.lights.env.gain = 1.0 1.0 1.0
-#scene.lights.env.gamma = 1.0
-
-
 scene.lights.infinitelight.type = infinite
 scene.lights.infinitelight.file = scenes/base/041-lussan-street-border_resized.exr
 scene.lights.infinitelight.gamma = 1.0
