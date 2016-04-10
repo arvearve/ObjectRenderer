@@ -1,0 +1,25 @@
+# Purple anodized Alu
+# Textures
+scene.textures.brushed_al.type = blender_voronoi
+scene.textures.brushed_al.bright = 1
+scene.textures.brushed_al.contrast = 1
+scene.textures.brushed_al.distmetric = actual_distance
+scene.textures.brushed_al.minkovsky_exp = 2.5
+scene.textures.brushed_al.noisesize = 0.01
+scene.textures.brushed_al.nabla = 0.025
+scene.textures.brushed_al.w1 = -2
+scene.textures.brushed_al.w2 = 0
+scene.textures.brushed_al.w3 = 1
+scene.textures.brushed_al.w4 = 0.5
+scene.textures.brushed_al.mapping.type = globalmapping3d
+scene.textures.brushed_al.mapping.transformation = 0.01 0 0 0 0 0.01 0 0 0 0 20 0 0 0 0 1
+
+scene.textures.brushed_al_scaled.type = scale
+scene.textures.brushed_al_scaled.texture1 = 0.0015
+scene.textures.brushed_al_scaled.texture2 = brushed_al
+
+## Material
+scene.materials.aluminium.type = metal2
+scene.materials.aluminium.preset = aluminium
+scene.materials.aluminium.bumptex = brushed_al_scaled
+

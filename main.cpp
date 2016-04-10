@@ -22,9 +22,9 @@ void deviceInfo() {
     std::cout << "\n";
 }
 
-
-
 int main(int argc, const char* argv[]){
+    srand (time(NULL));
+
     using namespace boost::program_options;
     options_description description("ObjectRenderer Usage");
 
