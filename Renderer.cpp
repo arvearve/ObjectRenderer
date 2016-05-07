@@ -38,35 +38,22 @@ void Renderer::addNextMesh() {
     config.GetScene().RemoveUnusedMeshes();
 }
 
-void Renderer::addRandomBase() {
-    int index = rand() % base_models.size();
-    std::string random_base_model_path = base_models[index].string();
-    config.GetScene().Parse(
-    Property("scene.shapes.base.type")("mesh") <<
-    Property("scene.shapes.base.ply")(random_base_model_path));
-    std::cout << "using base: " << random_base_model_path << std::endl;
-}
-
 void Renderer::render() {
     session.Start();
     Scene scene = config.GetScene();
     std::vector<Point> cameraPositions = getCameraPositions();
-    std::cout << "hello" << std::endl;
     // Render each mesh
     while(hasNextMesh()){
         session.BeginSceneEdit();
+        cleanScene();
         addNextMesh();
-        addRandomEnvironmentMap();
-        addRandomBase();
+        addRandomEnvironment();
 
         // Every mesh gets a random material
         config.GetScene().Parse(
                 Property("scene.objects.subject.material")(getRandomMaterial()) <<
                 Property("scene.objects.subject.shape")("subject") <<
-                Property("scene.objects.subject.id")(1) <<
-                Property("scene.objects.base.material")(getRandomMaterial()) <<
-                Property("scene.objects.base.shape")("base")<<
-                Property("scene.objects.base.id")(2)
+                Property("scene.objects.subject.id")(1)
         );
         session.EndSceneEdit();
         // Render from multiple camera positions
@@ -120,22 +107,22 @@ vector<Point> Renderer::getCameraPositions() const {
     result.push_back(Point( phi_inverse,  phi, 0.f));
     result.push_back(Point(-phi_inverse,  phi, 0.f));
     result.push_back(Point(-phi, 0.f, 0.f));
-    result.push_back(Point(-phi_inverse, -phi, 0.f));
-    result.push_back(Point( phi_inverse, -phi, 0.f));
-    result.push_back(Point( phi, 0.f, phi_inverse));
-    result.push_back(Point( 1.f,  1.f, 1.f));
-    result.push_back(Point(-1.f,  1.f, 1.f));
-    result.push_back(Point(-phi, 0.f, phi_inverse));
-
-    result.push_back(Point(-1.f, -1.f, 1.f));
-    result.push_back(Point( 1.f, -1.f, 1.f));
-    result.push_back(Point(0.f,  phi_inverse, phi));
-    result.push_back(Point(0.f, -phi_inverse, phi));
+//    result.push_back(Point(-phi_inverse, -phi, 0.f));
+//    result.push_back(Point( phi_inverse, -phi, 0.f));
+//    result.push_back(Point( phi, 0.f, phi_inverse));
+//    result.push_back(Point( 1.f,  1.f, 1.f));
+//    result.push_back(Point(-1.f,  1.f, 1.f));
+//    result.push_back(Point(-phi, 0.f, phi_inverse));
+//
+//    result.push_back(Point(-1.f, -1.f, 1.f));
+//    result.push_back(Point( 1.f, -1.f, 1.f));
+//    result.push_back(Point(0.f,  phi_inverse, phi));
+//    result.push_back(Point(0.f, -phi_inverse, phi));
     return result;
 }
 
 std::string Renderer::getRandomMaterial() {
-    int index = rand() % material_names.size();
+    unsigned long index = rand() % material_names.size();
     std::string material = material_names[index];
     std::cout << "Selecting random material: " << material << std::endl;
     return material;
@@ -162,19 +149,40 @@ void Renderer::loadMaterials() {
         material_names.push_back(materialName);
     }
 }
-
-void Renderer::addRandomEnvironmentMap() {
-    fs::path env_folder = configFile.parent_path() /= "environment";
-    vector<fs::path> env_files;
-    fs::directory_iterator end_itr;
-    for (fs::directory_iterator itr(env_folder); itr != end_itr; ++itr) {
+vector<fs::path> Renderer::getEnvironments() {
+    fs::path env_folder = configFile.parent_path() /= "environment/";
+    std::vector<fs::path> env_files;
+    fs::recursive_directory_iterator end_itr;
+    for (fs::recursive_directory_iterator itr(env_folder); itr != end_itr; ++itr) {
         // Ignore folders.
-        if (fs::is_regular_file(itr->path())) {
+        if (fs::is_regular_file(itr->path()) && itr->path().extension() == ".scn") {
             env_files.push_back(itr->path());
         }
     }
-    int index = rand() % env_files.size();
-    Properties env(env_files[index].string());
-    std::cout << "Using env: " << env_files[index].string() << std::endl;
-    config.GetScene().Parse(env);
+    std::cerr << "loaded " << env_files.size() << "envs. " << std::endl;
+    return env_files;
 }
+
+void Renderer::addRandomEnvironment() {
+    unsigned long index = rand() % environment_files.size();
+    std::string env_file = environment_files[index].string();
+    std::cerr << "using environment: " << env_file << std::endl;
+    config.GetScene().Parse(env_file);
+}
+
+void Renderer::cleanScene() {
+    Scene scene = config.GetScene();
+    vector<std::string> objects = scene.ToProperties().GetAllUniqueSubNames("scene.objects");
+    for (std::string object:objects) {
+        std::cerr << "removing object: " << object << std::endl;
+        scene.DeleteObject(object);
+    }
+    vector<std::string> lights = scene.ToProperties().GetAllUniqueSubNames("scene.lights");
+    for (std::string light:lights) {
+        std::cerr << "removing light: " << light << std::endl;
+        scene.DeleteLight(light);
+    }
+    scene.RemoveUnusedMeshes();
+}
+
+
