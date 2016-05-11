@@ -1,9 +1,0 @@
-# Blue lino
-## Material
-scene.materials.lino.type = glossy2
-scene.materials.lino.multibounce = 0
-scene.materials.lino.kd = 0.274 0.316 0.4
-scene.materials.lino.ks = 0.191 0.191 0.191
-scene.materials.lino.index = 0
-scene.materials.lino.uroughness = 0.33
-scene.materials.lino.vroughness = 0.33

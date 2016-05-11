@@ -16,11 +16,15 @@ class Renderer {
     Properties props;
     RenderConfig config;
     RenderSession session;
+    int environmentIndex;
     int renderTime;
     fs::path configFile;
     fs::directory_iterator current_mesh;
     vector<std::string> material_names;
     vector<fs::path> environment_files;
+    vector<std::string> env_objects;
+    vector<std::string> env_lights;
+    float camera_distance;
     static void log(const char*);
     static void log(const std::string);
     vector<Point> getCameraPositions() const;
@@ -41,6 +45,8 @@ public:
             current_mesh(boost::filesystem::directory_iterator(configFile.parent_path() /= "models/"))
 
     {
+        camera_distance = 0.106;
+        environmentIndex = 0;
         Init();
         loadMaterials();
         environment_files = getEnvironments();

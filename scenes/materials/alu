@@ -1,0 +1,22 @@
+scene.textures.alu-fresnel.type = "fresnelconst"
+scene.textures.alu-fresnel.n = 1.41161704 0.928296864 0.578662455
+scene.textures.alu-fresnel.k = 7.73768425 6.62173986 5.34196663
+
+scene.textures.alu-roughness.type = "constfloat1"
+scene.textures.alu-roughness.value = 0.0900009871
+
+
+scene.materials.alu.type = "metal2"
+scene.materials.alu.fresnel = "alu-fresnel"
+scene.materials.alu.uroughness = "alu-roughness"
+scene.materials.alu.vroughness = "alu-roughness"
+scene.materials.alu.id = 4012384
+scene.materials.alu.emission.gain = 1 1 1
+scene.materials.alu.emission.power = 0
+scene.materials.alu.emission.efficency = 0
+scene.materials.alu.emission.samples = -1
+scene.materials.alu.emission.id = 0
+scene.materials.alu.visibility.indirect.diffuse.enable = 1
+scene.materials.alu.visibility.indirect.glossy.enable = 1
+scene.materials.alu.visibility.indirect.specular.enable = 1
+scene.materials.alu.shadowcatcher.enable = 0

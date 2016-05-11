@@ -1,7 +1,0 @@
-scene.lights.environment.type = infinite
-scene.lights.environment.file = scenes/base/environment/plane/041-lussan-street-border_resized.exr
-scene.lights.environment.gamma = 1.0
-scene.lights.environment.gain = 3.0 3.0 3.0
-
-scene.shapes.base.type = mesh
-scene.shapes.base.ply = scenes/base/environment/plane/plane.ply

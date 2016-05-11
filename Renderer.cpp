@@ -31,7 +31,7 @@ bool Renderer::hasNextMesh(){
 
 void Renderer::addNextMesh() {
     std::string model_filename = current_mesh->path().string();
-    std::cerr << "selecting model: " << model_filename << std::endl;
+    std::cout << "selecting model: " << model_filename << std::endl;
     config.GetScene().Parse(
             Property("scene.shapes.subject.type")("mesh") <<
             Property("scene.shapes.subject.ply")(model_filename));
@@ -46,6 +46,7 @@ void Renderer::render() {
     while(hasNextMesh()){
         session.BeginSceneEdit();
         cleanScene();
+
         addNextMesh();
         addRandomEnvironment();
 
@@ -57,12 +58,25 @@ void Renderer::render() {
         );
         session.EndSceneEdit();
         // Render from multiple camera positions
+
         for (int image_number = 0; image_number < cameraPositions.size(); image_number++) {
             Point point = cameraPositions[image_number];
             session.BeginSceneEdit();
             scene.Parse(
-                    Property("scene.camera.lookat.orig")(point.x*2.f, point.y*2.f, point.z*2.f) <<
-                    Property("scene.camera.lookat.target")(0.f, 0.f, 0.f));
+                    Property("scene.camera.type")("perspective")<<
+                    Property("scene.camera.lookat.orig")(point.x*camera_distance, point.y*camera_distance, point.z*camera_distance) <<
+                    Property("scene.camera.lookat.target")(0.f, 0.f, 0.f)<<
+                    Property("scene.camera.cliphither")(0.00100000005)<<
+                    Property("scene.camera.clipyon")(1.00000002e+030)<<
+                    Property("scene.camera.shutteropen")(0)<<
+                    Property("scene.camera.shutterclose")(0.0416666679)<<
+                    Property("scene.camera.screenwindow")(-1, 1, -1, 1)<<
+                    Property("scene.camera.lensradius")(0.00460526301)<<
+                    Property("scene.camera.focaldistance")(0.17)<<
+                    Property("scene.camera.autofocus.enable")(0)<<
+                    Property("scene.camera.fieldofview")(49.1343422)<<
+                    Property("scene.camera.up")(0.01, 0.0, 1.0)
+            );
             session.EndSceneEdit();
             waitAndSave(image_number);
         }
@@ -107,17 +121,16 @@ vector<Point> Renderer::getCameraPositions() const {
     result.push_back(Point( phi_inverse,  phi, 0.f));
     result.push_back(Point(-phi_inverse,  phi, 0.f));
     result.push_back(Point(-phi, 0.f, 0.f));
-//    result.push_back(Point(-phi_inverse, -phi, 0.f));
-//    result.push_back(Point( phi_inverse, -phi, 0.f));
-//    result.push_back(Point( phi, 0.f, phi_inverse));
-//    result.push_back(Point( 1.f,  1.f, 1.f));
-//    result.push_back(Point(-1.f,  1.f, 1.f));
-//    result.push_back(Point(-phi, 0.f, phi_inverse));
-//
-//    result.push_back(Point(-1.f, -1.f, 1.f));
-//    result.push_back(Point( 1.f, -1.f, 1.f));
-//    result.push_back(Point(0.f,  phi_inverse, phi));
-//    result.push_back(Point(0.f, -phi_inverse, phi));
+    result.push_back(Point(-phi_inverse, -phi, 0.f));
+    result.push_back(Point( phi_inverse, -phi, 0.f));
+    result.push_back(Point( phi, 0.f, phi_inverse));
+    result.push_back(Point( 1.f,  1.f, 1.f));
+    result.push_back(Point(-1.f,  1.f, 1.f));
+    result.push_back(Point(-phi, 0.f, phi_inverse));
+    result.push_back(Point(-1.f, -1.f, 1.f));
+    result.push_back(Point( 1.f, -1.f, 1.f));
+    result.push_back(Point(0.f,  phi_inverse, phi));
+    result.push_back(Point(0.f, -phi_inverse, phi));
     return result;
 }
 
@@ -136,7 +149,7 @@ void Renderer::loadMaterials() {
     fs::directory_iterator end_itr;
     for (fs::directory_iterator itr(materials_folder); itr != end_itr; ++itr) {
         // Ignore folders.
-        if (fs::is_regular_file(itr->path())) {
+        if (!fs::is_directory(itr->path())) {
             Properties material(itr->path().string());
             all_materials << material;
         }
@@ -159,29 +172,46 @@ vector<fs::path> Renderer::getEnvironments() {
             env_files.push_back(itr->path());
         }
     }
-    std::cerr << "loaded " << env_files.size() << "envs. " << std::endl;
+    std::cout << "loaded " << env_files.size() << "envs. " << std::endl;
     return env_files;
 }
 
 void Renderer::addRandomEnvironment() {
-    unsigned long index = rand() % environment_files.size();
+//    unsigned long index = rand() % environment_files.size();
+    unsigned long index = environmentIndex++ % environment_files.size();
+
     std::string env_file = environment_files[index].string();
-    std::cerr << "using environment: " << env_file << std::endl;
+    std::cout << "using environment: " << env_file << std::endl;
+    Properties scene(env_file);
+
+    /* In order to clean up the objects and lights added by this environment scene, we need names.
+     * Since we cannot get hold of object and light names after the fact, we have to manually cache them here.*/
+    vector<std::string> objects = scene.GetAllUniqueSubNames("scene.objects");
+    env_objects.clear();
+    for(std::vector<std::string>::const_iterator it = objects.begin(); it != objects.end(); it++){
+        env_objects.push_back(Property::ExtractField(*it, 2));
+    }
+    vector<std::string> lights = scene.GetAllUniqueSubNames("scene.lights");
+    env_lights.clear();
+    for(std::vector<std::string>::const_iterator it = lights.begin(); it != lights.end(); it++){
+        env_lights.push_back(Property::ExtractField(*it, 2));
+    }
     config.GetScene().Parse(env_file);
 }
 
 void Renderer::cleanScene() {
+
+    std::cout << "cleaning scene." << std::endl;
     Scene scene = config.GetScene();
-    vector<std::string> objects = scene.ToProperties().GetAllUniqueSubNames("scene.objects");
-    for (std::string object:objects) {
-        std::cerr << "removing object: " << object << std::endl;
-        scene.DeleteObject(object);
+    scene.DeleteLight("dummy");
+    for(std::vector<std::string>::const_iterator it = env_objects.begin(); it != env_objects.end(); it++){
+        scene.DeleteObject(*it);
     }
-    vector<std::string> lights = scene.ToProperties().GetAllUniqueSubNames("scene.lights");
-    for (std::string light:lights) {
-        std::cerr << "removing light: " << light << std::endl;
-        scene.DeleteLight(light);
+    env_objects.clear();
+    for(std::vector<std::string>::const_iterator it = env_lights.begin(); it != env_lights.end(); it++){
+        scene.DeleteLight(*it);
     }
+    env_lights.clear();
     scene.RemoveUnusedMeshes();
 }
 

@@ -1,0 +1,27 @@
+scene.textures.matte-bump-tex.type = "windy"
+scene.textures.matte-bump-const.type = "constfloat1"
+scene.textures.matte-bump-const.value = 0.00999999978
+scene.textures.matte-bump-scale.type = "scale"
+scene.textures.matte-bump-scale.texture1 = "matte-bump-tex"
+scene.textures.matte-bump-scale.texture2 = "matte-bump-const"
+
+scene.textures.matte-white-kd.type = "constfloat3"
+scene.textures.matte-white-kd.value = 0.841199517 0.841199517 0.841199517
+
+scene.textures.matte-white-sigma.type = "constfloat1"
+scene.textures.matte-white-sigma.value = 0.599999964
+
+scene.materials.matte-white.type = "roughmatte"
+scene.materials.matte-white.kd = "matte-white-kd"
+scene.materials.matte-white.sigma = "matte-white-sigma"
+scene.materials.matte-white.id = 3364224
+scene.materials.matte-white.emission.gain = 1 1 1
+scene.materials.matte-white.emission.power = 0
+scene.materials.matte-white.emission.efficency = 0
+scene.materials.matte-white.emission.samples = -1
+scene.materials.matte-white.emission.id = 0
+scene.materials.matte-white.bumptex = "matte-bump-scale"
+scene.materials.matte-white.visibility.indirect.diffuse.enable = 1
+scene.materials.matte-white.visibility.indirect.glossy.enable = 1
+scene.materials.matte-white.visibility.indirect.specular.enable = 1
+scene.materials.matte-white.shadowcatcher.enable = 0

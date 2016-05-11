@@ -1,0 +1,20 @@
+# Camera
+scene.camera.cliphither = 0.00100000005
+scene.camera.clipyon = 1.00000002e+030
+scene.camera.shutteropen = 0
+scene.camera.shutterclose = 0.0416666679
+scene.camera.lookat.orig = -0.0419746377 -0.153715685 0.0733216256
+scene.camera.lookat.target = -0.00817865133 1.19086587 -0.206158921
+scene.camera.screenwindow = -1 1 -1 1
+scene.camera.lensradius = 0.00460526301
+scene.camera.focaldistance = 0.535
+
+scene.camera.type = "perspective"
+scene.camera.fieldofview = 49.1343422
+scene.camera.up	= 0.01 0.0 1.0
+
+
+# Light
+scene.lights.dummy.type = point
+scene.lights.dummy.position = 0 0 5
+scene.lights.dummy.power = 0
