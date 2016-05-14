@@ -210,6 +210,7 @@ void Renderer::cleanScene() {
     std::cout << "cleaning scene." << std::endl;
     Scene scene = config.GetScene();
     scene.DeleteLight("dummy");
+    scene.DeleteObject("subject");
     for(std::vector<std::string>::const_iterator it = env_objects.begin(); it != env_objects.end(); it++){
         scene.DeleteObject(*it);
     }
