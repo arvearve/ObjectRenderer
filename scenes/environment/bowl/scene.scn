@@ -1,6 +1,8 @@
-scene.objects.obj-00000262C9761810.material = "material-00000262D06CA360"
-scene.objects.obj-00000262C9761810.ply = "scenes/environment/bowl/mesh-00000.ply"
-scene.objects.obj-00000262C9761EA0.material = "material-00000262D06CA0E0"
-scene.objects.obj-00000262C9761EA0.ply = "scenes/environment/bowl/mesh-00001.ply"
-scene.objects.obj-00000262C9761DB0.material = "material-00000262D06C93C0"
-scene.objects.obj-00000262C9761DB0.ply = "scenes/environment/bowl/mesh-00002.ply"
+scene.objects.obj-blue-light.material = "blue-light"
+scene.objects.obj-blue-light.ply = "scenes/environment/bowl/blue-light.ply"
+
+scene.objects.obj-red-light.material = "red-light"
+scene.objects.obj-red-light.ply = "scenes/environment/bowl/red-light.ply"
+
+scene.objects.obj-bowl.material = "material-bowl"
+scene.objects.obj-bowl.ply = "scenes/environment/bowl/bowl.ply"

@@ -46,8 +46,8 @@ void Renderer::render() {
     while(hasNextMesh()){
         session.BeginSceneEdit();
         cleanScene();
-        addNextMesh();
         addRandomEnvironment();
+        addNextMesh();
         // Every mesh gets a random material
         config.GetScene().Parse(
                 Property("scene.objects.subject.material")(getRandomMaterial()) <<
@@ -55,6 +55,7 @@ void Renderer::render() {
                 Property("scene.objects.subject.id")(1)
         );
         session.EndSceneEdit();
+        std::cout<< scene.ToProperties() << std::endl;
         // Render from multiple camera positions
         std::cout << "Number of lights: " << config.GetScene().GetLightCount() << std::endl;
         std::cout << "Number of objects: " << config.GetScene().GetObjectCount() << std::endl;
