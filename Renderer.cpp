@@ -46,10 +46,8 @@ void Renderer::render() {
     while(hasNextMesh()){
         session.BeginSceneEdit();
         cleanScene();
-
         addNextMesh();
         addRandomEnvironment();
-
         // Every mesh gets a random material
         config.GetScene().Parse(
                 Property("scene.objects.subject.material")(getRandomMaterial()) <<
@@ -58,6 +56,8 @@ void Renderer::render() {
         );
         session.EndSceneEdit();
         // Render from multiple camera positions
+        std::cout << "Number of lights: " << config.GetScene().GetLightCount() << std::endl;
+        std::cout << "Number of objects: " << config.GetScene().GetObjectCount() << std::endl;
 
         for (int image_number = 0; image_number < cameraPositions.size(); image_number++) {
             Point point = cameraPositions[image_number];
@@ -168,8 +168,13 @@ vector<fs::path> Renderer::getEnvironments() {
     fs::recursive_directory_iterator end_itr;
     for (fs::recursive_directory_iterator itr(env_folder); itr != end_itr; ++itr) {
         // Ignore folders.
-        if (fs::is_regular_file(itr->path()) && itr->path().extension() == ".scn") {
-            env_files.push_back(itr->path());
+        if (fs::is_regular_file(itr->path())){
+            if(itr->path().extension() == ".scn") {
+                env_files.push_back(itr->path());
+            }
+            if(itr->path().extension() == ".mat"){
+                config.GetScene().Parse(itr->path().string());
+            }
         }
     }
     std::cout << "loaded " << env_files.size() << "envs. " << std::endl;
@@ -214,5 +219,8 @@ void Renderer::cleanScene() {
     env_lights.clear();
     scene.RemoveUnusedMeshes();
 }
+
+
+
 
 
