@@ -73,7 +73,7 @@ void Renderer::render() {
                     Property("scene.camera.shutterclose")(0.0416666679)<<
                     Property("scene.camera.screenwindow")(-1, 1, -1, 1)<<
                     Property("scene.camera.lensradius")(0.00460526301)<<
-                    Property("scene.camera.focaldistance")(0.17)<<
+                    Property("scene.camera.focaldistance")(0.252408)<<
                     Property("scene.camera.autofocus.enable")(0)<<
                     Property("scene.camera.fieldofview")(49.1343422)<<
                     Property("scene.camera.up")(0.01, 0.0, 1.0)
@@ -88,12 +88,13 @@ void Renderer::render() {
 void Renderer::renameFile(const int image_number) {
     fs::path output_folder = fs::path("output") / current_mesh->path().filename();
     fs::create_directories(output_folder);
+    fs::create_directories(output_folder / "masks");
 
     fs::path source_rgb(session.GetRenderConfig().GetProperty("film.outputs.1.filename").GetValuesString());
     fs::path source_mask(session.GetRenderConfig().GetProperty("film.outputs.2.filename").GetValuesString());
 
     fs::path target_rgb = output_folder / fs::path((boost::format("%d.png") % image_number).str());
-    fs::path target_mask = output_folder / fs::path((boost::format("%d_mask.png") % image_number).str());
+    fs::path target_mask = output_folder / "masks" / fs::path((boost::format("%d_mask.png") % image_number).str());
 
     fs::rename(source_rgb, target_rgb);
     fs::rename(source_mask, target_mask);

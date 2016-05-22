@@ -39,7 +39,7 @@ scene.materials.red-light.shadowcatcher.enable = 0
 
 
 scene.textures.bowl-kd.type = "constfloat3"
-scene.textures.bowl-kd.value = 0.639999986 0.639999986 0.639999986
+scene.textures.bowl-kd.value = 0.839999986 0.839999986 0.839999986
 
 scene.materials.material-bowl.type = "matte"
 scene.materials.material-bowl.kd = "bowl-kd"

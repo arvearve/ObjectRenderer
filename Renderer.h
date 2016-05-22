@@ -45,7 +45,7 @@ public:
             current_mesh(boost::filesystem::directory_iterator(configFile.parent_path() /= "models/"))
 
     {
-        camera_distance = 0.106;
+        camera_distance = 0.156;
         environmentIndex = 0;
         Init();
         loadMaterials();
