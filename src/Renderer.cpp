@@ -1,13 +1,5 @@
 #include "Renderer.h"
 
-void Renderer::log(const char *string) {
-    std::cout << string << std::endl;
-}
-
-void Renderer::log(const std::string string) {
-    log(string.c_str());
-}
-
 void Renderer::waitAndSave(const int image_number) {
     const double startTime = WallClockTime();
     for (;;) {
@@ -144,7 +136,7 @@ std::string Renderer::getRandomMaterial() {
 }
 
 void Renderer::loadMaterials() {
-    log("Loading materials...");
+    std::cout << "Loading materials..." << std::endl;
     fs::path materials_folder = configFile.parent_path() /= "materials/";
     Properties all_materials;
 
@@ -222,8 +214,3 @@ void Renderer::cleanScene() {
     env_lights.clear();
     scene.RemoveUnusedMeshes();
 }
-
-
-
-
-

@@ -25,8 +25,6 @@ class Renderer {
     vector<std::string> env_objects;
     vector<std::string> env_lights;
     float camera_distance;
-    static void log(const char*);
-    static void log(const std::string);
     vector<Point> getCameraPositions() const;
     void waitAndSave(const int);
     void stats();
@@ -50,7 +48,6 @@ public:
         Init();
         loadMaterials();
         environment_files = getEnvironments();
-        log("loaded scene file: " + filename);
     };
     void render();
 

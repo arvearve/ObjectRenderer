@@ -83,31 +83,3 @@ TARGET_LINK_LIBRARIES(
 	${OPENIMAGEIO_LIBRARIES} 
 	${OPENCL_LIBRARIES}  
 	)
-
-
-
-
-# From parent:
-# -o bin/objectrenderer 
-# -rdynamic ../../lib/libluxcore.a ../../lib/libsmallluxgpu.a ../../lib/libluxrays.a /usr/local/lib/libembree.so 
-# -ltiff 
-# -lIex 
-# -lIlmImf 
-# -lHalf 
-# -lImath 
-# -lIlmThread 
-# -lpng 
-# -lz 
-# -ljpeg 
-# -lboost_thread 
-# -lboost_program_options 
-# -lboost_filesystem 
-# -lboost_serialization 
-# -lboost_iostreams 
-# -lboost_regex 
-# -lboost_system 
-# -lboost_python 
-# -lboost_chrono 
-# -lpthread 
-# -lOpenImageIO 
-# -lGL /home/arve/AMDAPPSDK-3.0/lib/x86_64/libOpenCL.so 
