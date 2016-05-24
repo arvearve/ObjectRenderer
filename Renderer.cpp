@@ -60,7 +60,7 @@ void Renderer::render() {
         std::cout << "Number of lights: " << config.GetScene().GetLightCount() << std::endl;
         std::cout << "Number of objects: " << config.GetScene().GetObjectCount() << std::endl;
 
-        for (int image_number = 0; image_number < cameraPositions.size(); image_number++) {
+        for (unsigned long image_number = 0; image_number < cameraPositions.size(); image_number++) {
             Point point = cameraPositions[image_number];
             session.BeginSceneEdit();
             scene.Parse(
