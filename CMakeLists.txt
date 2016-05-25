@@ -1,6 +1,5 @@
 project(ObjectRenderer)
 cmake_minimum_required(VERSION 3.2)
-
 set(CMAKE_MODULE_PATH
 	"${ObjectRenderer_SOURCE_DIR}"
 	"${ObjectRenderer_SOURCE_DIR}/cmake"
@@ -8,6 +7,7 @@ set(CMAKE_MODULE_PATH
 	"${ObjectRenderer_SOURCE_DIR}/cmake/Packages"
 	"${ObjectRenderer_SOURCE_DIR}/cmake/SpecializedConfig"
 )
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ObjectRenderer_SOURCE_DIR})
 
 INCLUDE(PlatformSpecific)
 INCLUDE(Configuration)
