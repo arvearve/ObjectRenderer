@@ -1,3 +1,5 @@
+all: convert scale clean
+
 # Download tools to manipulate PLY files
 tmp/plytools.tar.gz:
 	@mkdir -p $(@D)
@@ -51,11 +53,16 @@ models/ply/m%.ply: models/off/m%.off bin/off2ply bin/boundply bin/xformply bin/n
 convert: $(targets) models/off
 	@echo "Converting and scaling models. This may take a while..."
 
+# Build objectrenderer
+objectrenderer:
+	@ mkdir -p .build
+	@ (cd .build && cmake .. && make)
+
 
 # Build scene for rendering.
 # Make renderer work!
 
 clean:
-	rm -rf tmp
+	-rm -rf .build
+	-rm objectrenderer
 
-.PHONY: convert scale clean

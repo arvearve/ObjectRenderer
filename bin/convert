@@ -1,15 +1,16 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # Converts a .off model to .ply format, then rotates, scales and translates the model
 # so that it has the expected dimensions for our application.
+SCRIPTDIR="$(dirname "$0")"
 
-off2ply \
-| xformply -r 90 1 0 0 -r 90 0 0 1  \
-| boundply -b 0.106 -m \
+$SCRIPTDIR/off2ply \
+| $SCRIPTDIR/xformply -r 90 1 0 0 -r 90 0 0 1  \
+| $SCRIPTDIR/boundply -b 0.106 -m \
 | (
 	plydata=`cat`; 
-	offset=`boundply -p <<<"$plydata" 2>&1 | grep zmin | awk '{print -$3-0.0573899}'`; 
-	xformply -t 0 0 $offset <<<"$plydata"
+	offset=`$SCRIPTDIR/boundply -p <<<"$plydata" 2>&1 | grep zmin | awk '{print -$3-0.0573899}'`; 
+	$SCRIPTDIR/xformply -t 0 0 $offset <<<"$plydata"
 	) \
-| normalsply
+| $SCRIPTDIR/normalsply
 

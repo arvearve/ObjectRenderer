@@ -32,9 +32,6 @@ find_package(OpenImageIO REQUIRED)
 include_directories(BEFORE SYSTEM ${OPENIMAGEIO_INCLUDE_DIR})
 find_package(OpenEXR REQUIRED)
 
-if(NOT APPLE)
-    # Apple has these available hardcoded and matched in macos repo, see Config_OSX.cmake
-
     include_directories(BEFORE SYSTEM ${OPENEXR_INCLUDE_DIRS})
     find_package(TIFF REQUIRED)
     include_directories(BEFORE SYSTEM ${TIFF_INCLUDE_DIR})
@@ -42,11 +39,7 @@ if(NOT APPLE)
     include_directories(BEFORE SYSTEM ${JPEG_INCLUDE_DIR})
     find_package(PNG REQUIRED)
     include_directories(BEFORE SYSTEM ${PNG_PNG_INCLUDE_DIR})
-	# Find Python Libraries
-	find_package(PythonLibs)
-endif()
 
-include_directories(${PYTHON_INCLUDE_DIRS})
 
 # Find Boost
 set(Boost_USE_STATIC_LIBS       OFF)
@@ -135,27 +128,3 @@ if(NOT APPLE)
 	endif()
 endif()
 
-# Find GTK 3.0 for Linux only (required by luxcoreui NFD)
-if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-	find_package(PkgConfig REQUIRED)
-	pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
-	include_directories(${GTK3_INCLUDE_DIRS})
-endif()
-
-# Find BISON
-IF (NOT BISON_NOT_AVAILABLE)
-	find_package(BISON)
-	IF (NOT BISON_FOUND)
-		MESSAGE(WARNING "bison not found - try compilation using already generated files")
-		SET(BISON_NOT_AVAILABLE 1)
-	ENDIF (NOT BISON_FOUND)
-ENDIF (NOT BISON_NOT_AVAILABLE)
-
-# Find FLEX
-IF (NOT FLEX_NOT_AVAILABLE)
-	find_package(FLEX)
-	IF (NOT FLEX_FOUND)
-		MESSAGE(WARNING "flex not found - try compilation using already generated files")
-		SET(FLEX_NOT_AVAILABLE 1)
-	ENDIF (NOT FLEX_FOUND)
-ENDIF (NOT FLEX_NOT_AVAILABLE)
