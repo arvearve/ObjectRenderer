@@ -1,0 +1,44 @@
+21c21
+< 
+---
+> #include <stdlib.h>
+25,26c25,28
+< 
+< 
+---
+> void transform();
+> void usage();
+> void read_file();
+> void write_file();
+66c68
+< main(int argc, char *argv[])
+---
+> int main(int argc, char *argv[])
+84c86
+<           box_size = atof (*++argv);
+---
+>           box_size = atof(*++argv);
+88,90c90,92
+<           xcenter = atof (*++argv);
+<           ycenter = atof (*++argv);
+<           zcenter = atof (*++argv);
+---
+>           xcenter = atof(*++argv);
+>           ycenter = atof(*++argv);
+>           zcenter = atof(*++argv);
+113c115
+< usage(char *progname)
+---
+> void usage(char *progname)
+127c129
+< transform()
+---
+> void transform()
+231c233
+< read_file()
+---
+> void read_file()
+278c280
+< write_file()
+---
+> void write_file()

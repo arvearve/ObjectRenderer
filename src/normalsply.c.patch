@@ -1,0 +1,29 @@
+21a22
+> #include <stdlib.h>
+76c77,84
+< main(int argc, char *argv[])
+---
+> void write_file();
+> void read_file();
+> void compute_normals();
+> void write_file();
+> void usage();
+> 
+> 
+> int main(int argc, char *argv[])
+107c115
+< usage(char *progname)
+---
+> void usage(char *progname)
+118c126
+< compute_normals()
+---
+> void compute_normals()
+207c215
+< read_file()
+---
+> void read_file()
+284c292
+< write_file()
+---
+> void write_file()

@@ -1,0 +1,19 @@
+#!/usr/bin/env awk -f
+{
+	if(FNR == 1) {
+		print "ply"
+	}
+	else if (FNR == 2) {
+		print "format ascii 1.0"
+		print "element vertex " $1
+		print "property float32 x"
+		print "property float32 y"
+		print "property float32 z"
+		print "element face " $2
+		print "property list uint8 int32 vertex_indices"
+		print "end_header"
+	}
+	else {
+		print $0
+	}
+}

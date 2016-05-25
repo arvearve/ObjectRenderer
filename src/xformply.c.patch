@@ -1,0 +1,22 @@
+24a25
+> #include <stdlib.h>
+25a27,29
+> void read_file();
+> void transform();
+> void write_file();
+104c108
+< main(int argc, char *argv[])
+---
+> int main(int argc, char *argv[])
+167c171
+< transform()
+---
+> void transform()
+437c441
+< read_file()
+---
+> void read_file()
+484c488
+< write_file()
+---
+> void write_file()

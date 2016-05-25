@@ -18,9 +18,8 @@ include_directories("${ObjectRenderer_INCLUDE_DIR}")
 include(Dependencies)
 
 set(OBJECTRENDERER_SRCS
-	"main.cpp"
-	"Renderer.cpp"
-	"logger.cpp"
+	"src/main.cpp"
+	"src/Renderer.cpp"
 	)
 find_package(OpenCL REQUIRED)
 
