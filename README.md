@@ -20,7 +20,7 @@ In order to tell CMake where to find OpenCL files, export the path as an environ
 ```
 export ATISTREAMSDKROOT=/home/yourname/AMDAPPSDK-3.0
 export AMDAPPSDKROOT=/path/to/AMDAPPSDKROOT
-export CUDA_PATH=/path/to/CUDA 
+export CUDA_PATH=/path/to/NVIDIA/CUDA-7.0
 export INTELOCLSDKROOT=/path/to/intel_ocl_sdk_root
 ```
 
