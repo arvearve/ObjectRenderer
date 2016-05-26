@@ -4,7 +4,7 @@ all: convert scale clean
 tmp/plytools.tar.gz:
 	@mkdir -p $(@D)
 	@echo "Downloading PLY Tools"
-	@wget -O $@ http://www.cc.gatech.edu/projects/large_models/files/ply.tar.gz -q --show-progress
+	@wget -O $@ http://www.cc.gatech.edu/projects/large_models/files/ply.tar.gz -q 
 
 bin/boundply: tmp/plytools.tar.gz src/boundply.c.patch
 	@mkdir -p $(@D)
@@ -34,7 +34,7 @@ bin/normalsply: tmp/plytools.tar.gz src/normalsply.c.patch
 tmp/benchmark.zip:
 	@mkdir -p $(@D)
 	@echo "Downloading the Princeton Shape Benchmark"
-	@wget -O $@ http://shape.cs.princeton.edu/benchmark/download/psb_v1.zip -q --show-progress
+	@wget -O $@ http://shape.cs.princeton.edu/benchmark/download/psb_v1.zip -q
 
 # Extract models from the benchmark
 models/off: tmp/benchmark.zip
@@ -47,7 +47,7 @@ sources = $(wildcard models/off/*.off)
 targets = $(addprefix models/ply/,$(addsuffix .ply,$(basename $(notdir $(sources)))))
 models/ply/m%.ply: models/off/m%.off bin/off2ply bin/boundply bin/xformply bin/normalsply
 	@mkdir -p $(@D)
-	bin/convert < $< > $@
+	@bin/convert < $< > $@
 
 	
 convert: $(targets) models/off

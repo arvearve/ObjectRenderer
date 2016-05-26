@@ -15,18 +15,21 @@
 ## ======================================================================== ##
 
 FIND_PATH(EMBREE_INCLUDE_PATH embree2/rtcore.h
+  ${CMAKE_SOURCE_DIR}/include
   /usr/include
   /usr/local/include
   /opt/local/include
   ${EMBREE_ROOT}/include)
 
 FIND_LIBRARY(EMBREE_LIBRARY NAMES embree libembree.so.2 PATHS 
+  ${CMAKE_SOURCE_DIR}/lib/embree2
   /usr/lib 
   /usr/local/lib 
   /opt/local/lib
   ${EMBREE_ROOT}/lib/x64)
 
 IF (EMBREE_INCLUDE_PATH AND EMBREE_LIBRARY)
+message("EMBREE PATHS: " ${EMBREE_INCLUDE_PATH} ${EMBREE_LIBRARY})
   SET(EMBREE_FOUND TRUE)
 ENDIF()
 

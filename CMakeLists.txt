@@ -1,5 +1,6 @@
 project(ObjectRenderer)
 cmake_minimum_required(VERSION 3.2)
+set(CMAKE_VERBOSE_MAKEFILE TRUE)
 set(CMAKE_MODULE_PATH
 	"${ObjectRenderer_SOURCE_DIR}"
 	"${ObjectRenderer_SOURCE_DIR}/cmake"
@@ -8,6 +9,7 @@ set(CMAKE_MODULE_PATH
 
 SET(ObjectRenderer_INCLUDE_DIR "${ObjectRenderer_SOURCE_DIR}/include")
 include_directories("${ObjectRenderer_INCLUDE_DIR}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
 # Find dependencies
 include(Dependencies)
@@ -18,7 +20,6 @@ set(OBJECTRENDERER_SRCS
 	)
 find_package(OpenCL REQUIRED)
 
-
 if (NOT Boost_FOUND)
 	MESSAGE(FATAL_ERROR "--> Could not locate required Boost files - Please check ${BOOST_SEARCH_PATH}")
 endif()
@@ -28,7 +29,12 @@ if (NOT OPENIMAGEIO_FOUND)
 endif()
 
 if (NOT OPENCL_FOUND)
-	MESSAGE(ERROR "--> Could not locate OpenCL. Did you forget to `export ATISTREAMSDKROOT=/path/to/AMDAPPSDK-3.0` or equivalent for CUDA?")
+	MESSAGE(ERROR "--> Could not locate OpenCL. Try one of the follwing:") 
+	MESSAGE( "export ATISTREAMSDKROOT=/path/to/AMDAPPSDK-3.0")
+	MESSAGE( "export ATISTREAMSDKROOT=/home/yourname/AMDAPPSDK-3.0")
+	MESSAGE( "export AMDAPPSDKROOT=/path/to/AMDAPPSDKROOT")
+	MESSAGE( "export CUDA_PATH=/path/to/NVIDIA/CUDA-7.0")
+	MESSAGE( "export INTELOCLSDKROOT=/path/to/intel_ocl_sdk_root")
 	SET(LUXRAYS_DISABLE_OPENCL 1)
 endif()
 
