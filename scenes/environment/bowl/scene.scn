@@ -1,8 +1,41 @@
-scene.objects.obj-blue-light.material = "blue-light"
-scene.objects.obj-blue-light.ply = "scenes/environment/bowl/blue-light.ply"
+scene.lights.light-0000025F49437540.gain = 0.075000003 0.125 0.207499996
+scene.lights.light-0000025F49437540.transformation = 0.497590929 0.163409919 -1.28055575e-007 0 -0.0880379453 0.268079102 -0.688132405 0 -0.396572143 1.2075814 0.521179855 0 -0.103389442 0.278185219 0.189757437 1
+scene.lights.light-0000025F49437540.samples = -1
+scene.lights.light-0000025F49437540.id = 0
+scene.lights.light-0000025F49437540.type = "spot"
+scene.lights.light-0000025F49437540.color = 1 1 1
+scene.lights.light-0000025F49437540.power = 0
+scene.lights.light-0000025F49437540.efficency = 0
+scene.lights.light-0000025F49437540.position = 0 0 0
+scene.lights.light-0000025F49437540.target = 0 0 -1
+scene.lights.light-0000025F49437540.coneangle = 51.5499992
+scene.lights.light-0000025F49437540.conedeltaangle = 18.500721
+scene.lights.light-0000025F49434340.gain = 0.075000003 0.125 0.207499996
+scene.lights.light-0000025F49434340.transformation = -8.9648421e-007 0.523736119 -1.28055575e-007 0 -0.282164991 -6.74508158e-007 -0.688132405 0 -1.27103198 -2.04820731e-006 0.521179855 0 -0.360635489 0.00909234397 0.189757437 1
+scene.lights.light-0000025F49434340.samples = -1
+scene.lights.light-0000025F49434340.id = 0
+scene.lights.light-0000025F49434340.type = "spot"
+scene.lights.light-0000025F49434340.color = 1 1 1
+scene.lights.light-0000025F49434340.power = 0
+scene.lights.light-0000025F49434340.efficency = 0
+scene.lights.light-0000025F49434340.position = 0 0 0
+scene.lights.light-0000025F49434340.target = 0 0 -1
+scene.lights.light-0000025F49434340.coneangle = 51.5499992
+scene.lights.light-0000025F49434340.conedeltaangle = 16.6735592
+scene.lights.light-0000025F494376D0.gain = 0.207499996 0.0731672496 0.0731672496
+scene.lights.light-0000025F494376D0.transformation = 0.0266511254 -0.663058221 -0.0137540791 0 0.205557719 0.0228652395 -0.70398289 0 1.31757164 0.0449480899 0.386180907 0 0.370018959 0.0103296945 0.134095818 1
+scene.lights.light-0000025F494376D0.samples = -1
+scene.lights.light-0000025F494376D0.id = 0
+scene.lights.light-0000025F494376D0.type = "spot"
+scene.lights.light-0000025F494376D0.color = 1 1 1
+scene.lights.light-0000025F494376D0.power = 0
+scene.lights.light-0000025F494376D0.efficency = 0
+scene.lights.light-0000025F494376D0.position = 0 0 0
+scene.lights.light-0000025F494376D0.target = 0 0 -1
+scene.lights.light-0000025F494376D0.coneangle = 48.4999962
+scene.lights.light-0000025F494376D0.conedeltaangle = 12.4483318
 
-scene.objects.obj-red-light.material = "red-light"
-scene.objects.obj-red-light.ply = "scenes/environment/bowl/red-light.ply"
+
 
 scene.objects.obj-bowl.material = "material-bowl"
 scene.objects.obj-bowl.ply = "scenes/environment/bowl/bowl.ply"
